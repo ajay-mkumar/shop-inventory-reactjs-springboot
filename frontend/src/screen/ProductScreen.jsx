@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../redux/productSlice";
 import NoProductComponent from "../component/NoProductComponent";
+import AddProductScreen from "./AddProductScreen";
+import AddButtonComponent from "../component/AddButtonComponent";
 
 // const products = [
 //   {
@@ -27,11 +29,12 @@ import NoProductComponent from "../component/NoProductComponent";
 //     sold: 14,
 //     shop: "sha shop",
 //   },
-// ]; 
+// ];
 function ProductScreen() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { products, error, loading } = useSelector((state) => state.products);
+  const { currentModal } = useSelector((state) => state.modalToggle);
 
   useEffect(() => {
     dispatch(fetchProduct(id));
@@ -39,6 +42,8 @@ function ProductScreen() {
 
   return (
     <div className={styles.productContainer}>
+      <AddButtonComponent modalName="product" />
+      {currentModal === "product" && <AddProductScreen />}
       {error && <p>{error}</p>}
       {loading && <p>loading...</p>}
       {!loading && products.length !== 0 && (
@@ -57,7 +62,10 @@ function ProductScreen() {
                 <td>{product.product}</td>
                 <td>{product.stockQuantity}</td>
                 <td>{product.price}</td>
-                <td><button>📝</button><button>🗑️</button></td>
+                <td>
+                  <button>📝</button>
+                  <button>🗑️</button>
+                </td>
               </tr>
             ))}
           </tbody>

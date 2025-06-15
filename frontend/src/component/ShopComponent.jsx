@@ -6,7 +6,7 @@ function ShopComponent({ shop }) {
       <td>{shop.shop}</td>
       <td>{shop.totalProducts}</td>
       <td>
-        <Link to={`/shops/products/${shop.id}`}>view products</Link>
+        <Link to={`/shops/${shop.id}/products`}>view products</Link>
       </td>
     </tr>
   );

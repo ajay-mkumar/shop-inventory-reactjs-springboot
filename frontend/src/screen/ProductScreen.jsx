@@ -3,6 +3,7 @@ import styles from "./ProductScreen.module.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProduct } from "../redux/productSlice";
+import NoProductComponent from "../component/NoProductComponent";
 
 // const products = [
 //   {
@@ -62,7 +63,7 @@ function ProductScreen() {
           </tbody>
         </table>
       )}
-      {products.length === 0 && <p>No products added yet in the shop</p>}
+      {products.length === 0 && <NoProductComponent shopId={id} />}
     </div>
   );
 }

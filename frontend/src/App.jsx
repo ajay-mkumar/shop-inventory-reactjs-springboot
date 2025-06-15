@@ -9,6 +9,7 @@ import NavLayout from "./component/NavLayout";
 import ShopScreen from "./screen/ShopScreen";
 import ProductScreen from "./screen/ProductScreen";
 import ShopList from "./screen/ShopList";
+import AddProductScreen from "./screen/AddProductScreen";
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
             <Route path="shops" element={<ShopScreen />}>
               <Route index element={<Navigate replace to="shoplist" />} />
               <Route path="shoplist" element={<ShopList />} />
-              <Route path="products/:id" element={<ProductScreen />} />
+              <Route path=":id/products" element={<ProductScreen />} />
+              <Route path=":id/products/add" element={<AddProductScreen />} />
             </Route>
             <Route path="products" element={<ProductScreen />} />
           </Route>

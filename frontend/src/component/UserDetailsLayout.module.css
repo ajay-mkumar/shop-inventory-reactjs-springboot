@@ -1,0 +1,14 @@
+.userLayout{
+    margin: 20px;
+    width: 75%;
+    border: 1px;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.userLayout .userDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    list-style: none;
+    gap: 20px;
+}

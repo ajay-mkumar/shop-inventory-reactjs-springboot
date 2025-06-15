@@ -1,0 +1,29 @@
+.productContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.productList {
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+.productHeader {
+    box-shadow: 0 0 10px #ccc;
+}
+
+.productHeader tr th {
+    padding: 20px 50px;
+}
+
+.productBody tr td {
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 0 10px #ccc;
+    transition: background-color 0.5s ease-out;
+}
+
+.productBody tr td:hover {
+    background-color: #808080ee;
+}

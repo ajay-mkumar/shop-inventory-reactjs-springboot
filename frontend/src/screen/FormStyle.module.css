@@ -1,0 +1,30 @@
+.formgroup{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+label{
+    width: 100px;
+}
+
+input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid  #ccc;
+    border-radius: 4px;
+}
+
+.buttonwrapper{
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    align-self: center;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #ec8f15bb;;
+}

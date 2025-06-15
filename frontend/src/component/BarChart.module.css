@@ -1,0 +1,21 @@
+.barchartContainer {
+  width: 50%;
+  max-width: 400px;
+  margin: 20px 0;
+  border: 1px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+.barchart {
+    margin: 70px 0;
+}
+
+
+.barchartContainer p{
+    /* position: relative;
+    bottom: 50px;
+    left: 100px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

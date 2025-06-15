@@ -1,0 +1,11 @@
+.homepage .shops{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 50px;
+    /* justify-content: center; */
+}
+
+.homepage .userDetails {
+    display: flex;
+    justify-content: center;
+}

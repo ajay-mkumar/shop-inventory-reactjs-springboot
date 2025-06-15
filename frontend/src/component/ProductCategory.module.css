@@ -1,0 +1,27 @@
+.categoryLayout {
+    margin: 20px;
+    border: 1px;
+    width: 25%;
+    padding: 20px;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.categories {
+    list-style: none;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0;
+    margin: 10px 10px;
+}
+
+.categories li {
+    background-color: #a8bba9;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
-function ShopComponent({ shopName, totalProducts }) {
+function ShopComponent({ shop }) {
   return (
     <tr>
-      <td>{shopName}</td>
-      <td>{totalProducts}</td>
+      <td>{shop.shop}</td>
+      <td>{shop.totalProducts}</td>
       <td>
-        <Link to=''>view products</Link>
+        <Link to={`/shops/products/${shop.id}`}>view products</Link>
       </td>
     </tr>
   );

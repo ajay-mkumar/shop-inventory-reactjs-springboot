@@ -8,6 +8,7 @@ import NavBar from "./component/NavBar";
 import NavLayout from "./component/NavLayout";
 import ShopScreen from "./screen/ShopScreen";
 import ProductScreen from "./screen/ProductScreen";
+import ShopList from "./screen/ShopList";
 
 function App() {
   return (
@@ -21,7 +22,11 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<NavLayout />}>
             <Route path="home" element={<Homepage />} />
-            <Route path="shops" element={<ShopScreen />} />
+            <Route path="shops" element={<ShopScreen />}>
+              <Route index element={<Navigate replace to="shoplist" />} />
+              <Route path="shoplist" element={<ShopList />} />
+              <Route path="products/:id" element={<ProductScreen />} />
+            </Route>
             <Route path="products" element={<ProductScreen />} />
           </Route>
         </Route>

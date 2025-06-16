@@ -39,10 +39,12 @@ const shopSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchShop.pending, (state) => {
+        state.error = null;
         state.loading = true;
       })
       .addCase(fetchShop.fulfilled, (state, action) => {
         state.loading = false;
+        state.error = null;
         state.shops = action.payload;
       })
       .addCase(fetchShop.rejected, (state, action) => {
@@ -50,6 +52,7 @@ const shopSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(addShop.pending, (state) => {
+        state.error = null;
         state.loading = true;
       })
       .addCase(addShop.fulfilled, (state, action) => {

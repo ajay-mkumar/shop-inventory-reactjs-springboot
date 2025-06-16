@@ -1,0 +1,30 @@
+/* .addform {
+    display: grid;
+} */
+
+.forminputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.forminputs label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.forminputs input {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.forminputs input:focus {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-color: #007bff;
+}

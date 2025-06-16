@@ -15,6 +15,20 @@ export const fetchProduct = createAsyncThunk(
   }
 );
 
+export const addProduct = createAsyncThunk(
+  "products/addProduct",
+  async (shopId, product, thunkApi) => {
+    try {
+      const response = await axiosInstance.post(`/shop/${shopId}`, product);
+      return response.data;
+    } catch (err) {
+      const message =
+        err.response?.data?.message || err.message || "something went wrong";
+      return thunkApi.rejectWithValue(message);
+    }
+  }
+);
+
 const productSlice = createSlice({
   name: "products",
   initialState: {

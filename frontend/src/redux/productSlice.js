@@ -17,9 +17,9 @@ export const fetchProduct = createAsyncThunk(
 
 export const addProduct = createAsyncThunk(
   "products/addProduct",
-  async (shopId, product, thunkApi) => {
+  async (product, thunkApi) => {
     try {
-      const response = await axiosInstance.post(`/shop/${shopId}`, product);
+      const response = await axiosInstance.post("/product/create", product);
       return response.data;
     } catch (err) {
       const message =
@@ -48,6 +48,19 @@ const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(fetchProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(addProduct.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(addProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.products.push(action.payload);
+      })
+      .addCase(addProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

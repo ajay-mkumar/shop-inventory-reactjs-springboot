@@ -1,8 +1,54 @@
+import { useState } from "react";
 import FormModal from "../component/FormModal";
 import styles from "./AddProductScreen.module.css";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/productSlice";
+import { hideModal } from "../redux/modalSlice";
 
 function AddProductScreen() {
-  function handleSubmit() {}
+  const { id } = useParams();
+  const [formData, setFormData] = useState({
+    shopId: id,
+    product: "",
+    price: 0,
+    stockQuantity: 0,
+  });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleChange(e) {
+    const { name, value, type } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "number" ? +value : value,
+    }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!formData.product.trim()) {
+      alert("Product name is required!");
+      return;
+    }
+
+    if (formData.price < 0 || formData.stockQuantity < 0) {
+      alert("Price and stock must be non-negative.");
+      return;
+    }
+
+    dispatch(addProduct(formData));
+    dispatch(hideModal());
+    setFormData({
+      shopId: id,
+      product: "",
+      price: 0,
+      stockQuantity: 0,
+    });
+    navigate(`/shops/${id}/products`);
+  }
   return (
     <FormModal heading="product">
       <form onSubmit={handleSubmit} className={styles.addform}>
@@ -11,13 +57,27 @@ function AddProductScreen() {
           <input
             type="text"
             id="productName"
-            //   value={shopName}
-            //   onChange={(e) => setShopName(e.target.value)}
+            name="product"
+            autoFocus
+            value={formData.product}
+            onChange={handleChange}
           />
           <label htmlFor="price">Price</label>
-          <input type="number" id="price" />
+          <input
+            type="number"
+            id="price"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+          />
           <label htmlFor="stock">stock</label>
-          <input type="number" id="stock" />
+          <input
+            type="number"
+            id="stock"
+            name="stockQuantity"
+            value={formData.stockQuantity}
+            onChange={handleChange}
+          />
         </div>
         <button>add shop</button>
       </form>

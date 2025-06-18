@@ -14,7 +14,7 @@ function FormModal({ heading, children }) {
         >
           ✖
         </button>
-        <h2>Add {heading}</h2>
+        <h2>{heading}</h2>
         {children}
       </div>
     </div>

@@ -2,6 +2,7 @@ package com.shop_inventory.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,11 +31,18 @@ public class ShopController {
     private final ShopService shopService;
     private final ProductService productService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/product")
     public ResponseEntity<List<ProductRequestDto>> getProductsByShopId(@PathVariable Long id) {
         List<ProductRequestDto> products = productService.getProducts(id);
 
         return new ResponseEntity<List<ProductRequestDto>>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<ShopDtoResponse>> getShopById(@PathVariable Long id) {
+        Optional<ShopDtoResponse> shop = shopService.getShopById(id);
+
+        return new ResponseEntity<Optional<ShopDtoResponse>>(shop, HttpStatus.OK);
     }
 
     @PostMapping("/add")

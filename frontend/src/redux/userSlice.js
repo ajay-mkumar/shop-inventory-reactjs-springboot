@@ -19,8 +19,8 @@ export const loginUser = createAsyncThunk(
 const userSlice = createSlice({
   name: "users",
   initialState: {
-    token: localStorage.getItem("token") ? localStorage.getItem("token") : "",
-    username: "",
+    token: localStorage.getItem("token") || "",
+    username: localStorage.getItem("username") || "",
     loading: false,
     error: null,
   },
@@ -39,8 +39,9 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        const { token, username} = action.payload;
+        const { token, username } = action.payload;
         localStorage.setItem("token", token);
+        localStorage.setItem("username", username);
         state.loading = false;
         state.token = token;
         state.username = username;

@@ -15,7 +15,7 @@ function AddShopScreen() {
   }
 
   return (
-    <FormModal heading="shop">
+    <FormModal heading="add shop">
       <form onSubmit={handleSubmit}>
         <label htmlFor="shopName">Shop Name: </label>
         <input

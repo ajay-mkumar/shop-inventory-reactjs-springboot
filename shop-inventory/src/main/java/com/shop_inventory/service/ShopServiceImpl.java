@@ -1,6 +1,7 @@
 package com.shop_inventory.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -66,6 +67,12 @@ public class ShopServiceImpl implements ShopService {
         List<ShopDtoResponse> shops = shopRepository.findByUserId(user.getId());
     
         return shops;
+    }
+
+    public Optional<ShopDtoResponse> getShopById(Long id) {
+        Optional<Shop> shop = shopRepository.findById(id);
+
+        return shop.map(ShopTransformer::toShopDTO);
     }
     
 

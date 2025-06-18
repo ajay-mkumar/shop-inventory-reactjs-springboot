@@ -29,10 +29,39 @@ export const addShop = createAsyncThunk(
   }
 );
 
+export const deleteShop = createAsyncThunk(
+  "shop/deleteShop",
+  async (shopId, thunkAPI) => {
+    try {
+      const response = await axiosInstance.delete(`shop/${shopId}`);
+      return response.data;
+    } catch (err) {
+      const message =
+        err.response?.data?.message || err.message || "Something went wrong";
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const fetchShopById = createAsyncThunk(
+  "shop/getShopById",
+  async (shopId, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get(`shop/${shopId}`);
+      return response.data;
+    } catch (err) {
+      const message =
+        err.response?.data?.message || err.message || "Something went wrong";
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const shopSlice = createSlice({
   name: "shop",
   initialState: {
     shops: [],
+    shop: null,
     loading: false,
     error: null,
   },
@@ -61,6 +90,32 @@ const shopSlice = createSlice({
         state.shops.push(action.payload);
       })
       .addCase(addShop.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteShop.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(deleteShop.fulfilled, (state, action) => {
+        state.error = null;
+        state.loading = false;
+        state.shops = state.shops.filter((shop) => shop.id !== action.meta.arg);
+      })
+      .addCase(deleteShop.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchShopById.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(fetchShopById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.shop = action.payload;
+      })
+      .addCase(fetchShopById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

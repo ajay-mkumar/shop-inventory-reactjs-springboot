@@ -2,7 +2,7 @@ import { useState } from "react";
 import FormModal from "../component/FormModal";
 import styles from "./AddProductScreen.module.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../redux/productSlice";
 import { hideModal } from "../redux/modalSlice";
 
@@ -14,6 +14,7 @@ function AddProductScreen() {
     price: 0,
     stockQuantity: 0,
   });
+  const { loading, error } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function AddProductScreen() {
     }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     if (!formData.product.trim()) {
@@ -39,18 +40,24 @@ function AddProductScreen() {
       return;
     }
 
-    dispatch(addProduct(formData));
-    dispatch(hideModal());
-    setFormData({
-      shopId: id,
-      product: "",
-      price: 0,
-      stockQuantity: 0,
-    });
-    navigate(`/shops/${id}/products`);
+    const result = await dispatch(addProduct(formData));
+
+    if (addProduct.fulfilled.match(result)) {
+      dispatch(hideModal());
+      setFormData({
+        shopId: id,
+        product: "",
+        price: 0,
+        stockQuantity: 0,
+      });
+      navigate(`/shops/${id}/products`);
+    } else {
+      alert(error);
+    }
   }
+
   return (
-    <FormModal heading="product">
+    <FormModal heading="add product">
       <form onSubmit={handleSubmit} className={styles.addform}>
         <div className={styles.forminputs}>
           <label htmlFor="productName">Product Name </label>
@@ -79,7 +86,9 @@ function AddProductScreen() {
             onChange={handleChange}
           />
         </div>
-        <button>add shop</button>
+        <button disabled={loading}>
+          {loading ? "loading..." : "add shop"}
+        </button>
       </form>
     </FormModal>
   );

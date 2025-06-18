@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchShop } from "../redux/shopSlice";
 import AddShopScreen from "./AddShopScreen";
 import AddButtonComponent from "../component/AddButtonComponent";
+import UpdateShopScreen from "./UpdateShopScreen";
 
 function ShopList() {
   // const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,7 @@ function ShopList() {
     <div className={styles.shopsContainer}>
       <AddButtonComponent modalName="shop" />
       {currentModal === "shop" && <AddShopScreen />}
+      {currentModal === "update" && <UpdateShopScreen />}
       {error && <p>{error}</p>}
       {loading ? (
         <p>Loading... </p>

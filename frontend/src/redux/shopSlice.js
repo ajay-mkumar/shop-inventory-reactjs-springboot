@@ -43,6 +43,21 @@ export const deleteShop = createAsyncThunk(
   }
 );
 
+export const updateShop = createAsyncThunk(
+  "shop/updateShop",
+  async ({ shopId, shopData }, thunkAPI) => {
+    try {
+      console.log(shopData);
+      const response = await axiosInstance.put(`shop/${shopId}`, shopData);
+      return response.data;
+    } catch (err) {
+      const message =
+        err.response?.data?.message || err.message || "Something went wrong";
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const fetchShopById = createAsyncThunk(
   "shop/getShopById",
   async (shopId, thunkAPI) => {
@@ -116,6 +131,25 @@ const shopSlice = createSlice({
         state.shop = action.payload;
       })
       .addCase(fetchShopById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateShop.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(updateShop.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        const updatedShop = action.payload;
+        const index = state.shops.findIndex(
+          (shop) => shop.id === updatedShop.id
+        );
+        if (index !== -1) {
+          state.shops[index] = updatedShop;
+        }
+      })
+      .addCase(updateShop.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

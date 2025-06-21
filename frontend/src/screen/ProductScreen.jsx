@@ -17,7 +17,7 @@ function ProductScreen() {
   useEffect(() => {
     dispatch(fetchProduct(id));
   }, [id, dispatch]);
-
+console.log(products)
   return (
     <div className={styles.productContainer}>
       {currentModal === "product" && <AddProductScreen />}

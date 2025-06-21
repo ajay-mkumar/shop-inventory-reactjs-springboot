@@ -16,8 +16,15 @@ function ShopComponent({ shop }) {
   }
 
   function handleUpdate(shopId) {
-    dispatch(fetchShopById(shopId));
-    dispatch(showModal("update"));
+    dispatch(fetchShopById(shopId))
+    .unwrap()
+    .then(() => {
+      dispatch(showModal("update"));
+    })
+    .catch((err) => {
+      console.error("Failed to fetch shop:", err);
+      alert("Failed to load shop details");
+    });
   }
 
   return (

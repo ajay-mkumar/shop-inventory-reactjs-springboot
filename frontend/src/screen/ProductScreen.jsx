@@ -7,6 +7,7 @@ import NoProductComponent from "../component/NoProductComponent";
 import AddProductScreen from "./AddProductScreen";
 import AddButtonComponent from "../component/AddButtonComponent";
 import ProductTable from "../component/ProductTable";
+import UpdateProductScreen from "./UpdateProductScreen";
 
 function ProductScreen() {
   const { id } = useParams();
@@ -17,11 +18,12 @@ function ProductScreen() {
   useEffect(() => {
     dispatch(fetchProduct(id));
   }, [id, dispatch]);
-console.log(products)
+  
   return (
     <div className={styles.productContainer}>
       {currentModal === "product" && <AddProductScreen />}
-
+      {currentModal === "updateProduct" && <UpdateProductScreen />}
+      
       {error && <p>{error}</p>}
       {loading && <p>loading...</p>}
 

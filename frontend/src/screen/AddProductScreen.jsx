@@ -58,7 +58,7 @@ function AddProductScreen() {
 
   return (
     <FormModal heading="add product">
-      <form onSubmit={handleSubmit} className={styles.addform}>
+      <form onSubmit={handleSubmit}>
         <div className={styles.forminputs}>
           <label htmlFor="productName">Product Name </label>
           <input
